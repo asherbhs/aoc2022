@@ -7,7 +7,11 @@ fn main() {
 			.unwrap()
 			.as_str()
 			.split("\n\n")
-			.map(|elf| elf.split('\n').filter_map(|c| c.parse::<i32>().ok()).sum::<i32>())
+			.map(|elf| elf
+				.lines()
+				.map(|c| c.parse::<i32>().unwrap())
+				.sum::<i32>()
+			)
 			.max()
 			.unwrap()
 	);

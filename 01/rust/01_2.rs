@@ -7,8 +7,8 @@ fn main() {
 		.as_str()
 		.split("\n\n")
 		.map(|elf| elf
-			.split('\n')
-			.filter_map(|c| c.parse::<i32>().ok())
+			.lines()
+			.map(|c| c.parse::<i32>().unwrap())
 			.sum::<i32>()
 		)
 		.collect::<Vec<_>>();

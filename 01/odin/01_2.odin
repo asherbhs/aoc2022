@@ -25,7 +25,7 @@ main :: proc() {
 		if sum > gold {
 			bronze = silver
 			silver = gold
-			gold = sum
+			gold   = sum
 		} else if sum > silver {
 			bronze = silver
 			silver = sum
