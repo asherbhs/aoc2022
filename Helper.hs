@@ -43,8 +43,24 @@ tiles n xs
     nextTile _ [] = Nothing
     nextTile n (x : xs) = do
         tileTail <- nextTile (n - 1) xs
-        return $ x : tileTail
+        return (x : tileTail)
 
 tiles2 :: [a] -> [(a, a)]
 tiles2 (x : y : t) = (x, y) : tiles2 t
 tiles2 _ = []
+
+splitOnElem :: Eq a => a -> [a] -> [[a]]
+splitOnElem x = foldr
+    (\e (y : ys) -> if e == x then [] : y : ys else (e : y) : ys)
+    [[]]
+
+splitOn :: Eq a => [a] -> [a] -> [[a]]
+splitOn [] _ = error "splitOn: empty splitter"
+splitOn x y = splitOn' (length x) x y
+  where
+    splitOn' _ _ [] = [[]]
+    splitOn' n x y
+        | x == take n y = [] : splitOn' n x (drop n y)
+        | otherwise = case splitOn x (tail y) of
+            []     -> [[head y]]
+            z : zs -> (head y : z) : zs

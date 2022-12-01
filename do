@@ -15,35 +15,36 @@ done
 shift $((OPTIND - 1))
 
 root=$(realpath ~/dev/aoc/2022)
-day=$root/$(printf %02d $1)
+dayn=$(printf %02d $1)
+day=$root/$dayn
 
 if [ -d $day/bqn ]
 then
 	printf "bqn:     "
 	if [[ $benchmark ]]
 	then
-		time bqn $day/bqn/00_$2.bqn $day/$([[ $example ]] && echo example.txt || echo input.txt)
+		time bqn $day/bqn/${dayn}_$2.bqn $day/$([[ $example ]] && echo example.txt || echo input.txt)
 		echo
 	else
-		bqn $day/bqn/00_$2.bqn $day/$([[ $example ]] && echo example.txt || echo input.txt)
+		bqn $day/bqn/${dayn}_$2.bqn $day/$([[ $example ]] && echo example.txt || echo input.txt)
 	fi
 fi
 
 if [ -d $day/haskell ]
 then
 	cd $day/haskell
-	ghc -v0 00_$2.hs $root/Helper.hs
+	ghc -v0 ${dayn}_$2.hs $root/Helper.hs
 	printf "haskell: "
 	if [[ $benchmark ]]
 	then
-		time ./00_$2 $day/$([[ $example ]] && echo example.txt || echo input.txt)
+		time ./${dayn}_$2 $day/$([[ $example ]] && echo example.txt || echo input.txt)
 		echo
 	else
-		./00_$2 $day/$([[ $example ]] && echo example.txt || echo input.txt)
+		./${dayn}_$2 $day/$([[ $example ]] && echo example.txt || echo input.txt)
 	fi
 	if [[ $cleanup ]]
 	then
-		rm 00_$2 00_$2.hi 00_$2.o $root/Helper.hi $root/Helper.o
+		rm ${dayn}_$2 ${dayn}_$2.hi ${dayn}_$2.o $root/Helper.hi $root/Helper.o
 	fi
 	cd - > /dev/null
 fi
@@ -52,17 +53,17 @@ if [ -d $day/odin ]
 then
 	printf "odin:    "
 	cd $day/odin
-	odin build 00_$2.odin -file
+	odin build ${dayn}_$2.odin -file
 	if [[ $benchmark ]]
 	then
-		time ./00_$2.bin $day/$([[ $example ]] && echo example.txt || echo input.txt)
+		time ./${dayn}_$2.bin $day/$([[ $example ]] && echo example.txt || echo input.txt)
 		echo
 	else
-		./00_$2.bin $day/$([[ $example ]] && echo example.txt || echo input.txt)
+		./${dayn}_$2.bin $day/$([[ $example ]] && echo example.txt || echo input.txt)
 	fi
 	if [[ $cleanup ]]
 	then
-		rm 00_$2.bin
+		rm ${dayn}_$2.bin
 	fi
 	cd - > /dev/null
 fi
@@ -71,17 +72,17 @@ if [ -d $day/rust ]
 then
 	printf "rust:    "
 	cd $day/rust
-	rustc 00_$2.rs
+	rustc ${dayn}_$2.rs
 	if [[ $benchmark ]]
 	then
-		time ./00_$2 $day/$([[ $example ]] && echo example.txt || echo input.txt)
+		time ./${dayn}_$2 $day/$([[ $example ]] && echo example.txt || echo input.txt)
 		echo
 	else
-		./00_$2 $day/$([[ $example ]] && echo example.txt || echo input.txt)
+		./${dayn}_$2 $day/$([[ $example ]] && echo example.txt || echo input.txt)
 	fi
 	if [[ $cleanup ]]
 	then
-		rm 00_$2
+		rm ${dayn}_$2
 	fi
 	cd - > /dev/null
 fi

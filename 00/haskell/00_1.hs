@@ -1,8 +1,5 @@
 import System.Environment (getArgs)
-
-windows2 :: [a] -> [(a, a)]
-windows2 (x : y : t) = (x, y) : windows2 (y : t)
-windows2 _ = []
+import Helper (windows2)
 
 main :: IO ()
 main = do
