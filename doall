@@ -1,0 +1,10 @@
+for i in {1..1}
+do
+	for j in {1..2}
+	do
+		echo
+		echo day $i part $j
+		echo
+		./do $i $j
+	done
+done

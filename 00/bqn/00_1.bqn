@@ -1,1 +1,0 @@
-•Show (+´ ⊢ < ¯∞ « ⊢) •BQN¨ •FLines ⊑ •args
