@@ -36,8 +36,6 @@ fn day01part02(input: String) -> i32 {
 		.sum::<i32>()
 }
 
-//
-
 fn main() {
 	let mut args = env::args();
 	args.next();
@@ -47,6 +45,6 @@ fn main() {
 	println!("{}", match (day.parse::<i32>().unwrap(), part.parse::<i32>().unwrap()) {
 		(1, 1) => day01part01(input).to_string(),
 		(1, 2) => day01part02(input).to_string(),
-		_ => unreachable!(),
+		_ => "".to_string(),
 	});
 }

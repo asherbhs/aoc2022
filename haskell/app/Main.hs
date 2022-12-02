@@ -1,5 +1,7 @@
 module Main (main) where
 
+import Debug.Trace (traceShow)
+
 import System.Environment (getArgs)
 import Data.Function ((&))
 import Data.List (sort, intercalate)
@@ -80,12 +82,43 @@ day01part2 input =
   in
     sum $ take 3 $ reverse $ sort $ map sum elves
 
----
+--- DAY2 ---
+
+day02part1 :: String -> Int
+day02part1
+    = sum
+    . map (\[x, _, y] ->
+      let
+        opp = fromEnum x - 65
+        you = fromEnum y - 88
+      in
+        (if you == (opp + 1) `mod` 3 then 6 else 0)
+        + (if you == opp then 3 else 0)
+        + 1 + you
+    )
+    . lines
+
+day02part2 :: String -> Int
+day02part2
+    = sum
+    . map (\[x, _, y] ->
+      let
+        opp = fromEnum x - 65
+        you = (fromEnum y - 89 + opp) `mod` 3
+      in
+        (if you == (opp + 1) `mod` 3 then 6 else 0)
+        + (if you == opp then 3 else 0)
+        + 1 + you
+    )
+    . lines
 
 main :: IO ()
 main = do
     [day, part, file] <- getArgs
     input <- readFile file
-    putStrLn $ input & case (read day, read part) :: (Int, Int) of
-        (1, 1) -> show . day01part1
-        (1, 2) -> show . day01part2
+    putStrLn $ case (read day, read part) :: (Int, Int) of
+        (1, 1) -> show $ day01part1 input
+        (1, 2) -> show $ day01part2 input
+        (2, 1) -> show $ day02part1 input
+        (2, 2) -> show $ day02part2 input
+        _ -> ""

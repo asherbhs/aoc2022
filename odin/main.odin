@@ -52,7 +52,39 @@ day01part2 :: proc(input: string) -> int {
 	return bronze + silver + gold
 }
 
-//
+// DAY 2
+
+day02part1 :: proc(input: string) -> int {
+	score := 0
+	for line in strings.split_lines(input) {
+		if len(line) == 0 { continue }
+		opp := int(line[0] - 'A')
+		you := int(line[2] - 'X')
+		if you == (opp + 1) % 3 {
+			score += 6
+		} else if you == opp {
+			score += 3
+		}
+		score += 1 + you
+	}
+	return score
+}
+
+day02part2 :: proc(input: string) -> int {
+	score := 0
+	for line in strings.split_lines(input) {
+		if len(line) == 0 { continue }
+		opp := int(line[0] - 'A')
+		you := (int(line[2]) - int('Y') + opp + 3) % 3
+		if you == (opp + 1) % 3 {
+			score += 6
+		} else if you == opp {
+			score += 3
+		}
+		score += 1 + you
+	}
+	return score
+}
 
 main :: proc() {
 	input_bytes, _ := os.read_entire_file_from_filename(os.args[3])
@@ -65,5 +97,11 @@ main :: proc() {
 		case 1: fmt.println(day01part1(input))
 		case 2: fmt.println(day01part2(input))
 		}
+	case 2:
+		switch strconv.atoi(os.args[2]) {
+		case 1: fmt.println(day02part1(input))
+		case 2: fmt.println(day02part2(input))
+		}
+	case 3: fmt.println()
 	}
 }
