@@ -57,15 +57,10 @@ day01part2 :: proc(input: string) -> int {
 day02part1 :: proc(input: string) -> int {
 	score := 0
 	for line in strings.split_lines(input) {
-		if len(line) == 0 { continue }
+		if len(line) == 0 { continue } // final line
 		opp := int(line[0] - 'A')
 		you := int(line[2] - 'X')
-		if you == (opp + 1) % 3 {
-			score += 6
-		} else if you == opp {
-			score += 3
-		}
-		score += 1 + you
+		score += 3 * ((you + 1 - opp + 3) % 3) + 1 + you
 	}
 	return score
 }
@@ -76,12 +71,7 @@ day02part2 :: proc(input: string) -> int {
 		if len(line) == 0 { continue }
 		opp := int(line[0] - 'A')
 		you := (int(line[2]) - int('Y') + opp + 3) % 3
-		if you == (opp + 1) % 3 {
-			score += 6
-		} else if you == opp {
-			score += 3
-		}
-		score += 1 + you
+		score += 3 * ((you + 1 - opp + 3) % 3) + 1 + you
 	}
 	return score
 }

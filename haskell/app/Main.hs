@@ -89,12 +89,10 @@ day02part1
     = sum
     . map (\[x, _, y] ->
       let
-        opp = fromEnum x - 65
-        you = fromEnum y - 88
+        opp = fromEnum x - fromEnum 'A'
+        you = fromEnum y - fromEnum 'X'
       in
-        (if you == (opp + 1) `mod` 3 then 6 else 0)
-        + (if you == opp then 3 else 0)
-        + 1 + you
+        3 * ((you + 1 - opp) `mod` 3) + 1 + you
     )
     . lines
 
@@ -103,12 +101,10 @@ day02part2
     = sum
     . map (\[x, _, y] ->
       let
-        opp = fromEnum x - 65
-        you = (fromEnum y - 89 + opp) `mod` 3
+        opp = fromEnum x - fromEnum 'A'
+        you = (fromEnum y - fromEnum 'Y' + opp) `mod` 3
       in
-        (if you == (opp + 1) `mod` 3 then 6 else 0)
-        + (if you == opp then 3 else 0)
-        + 1 + you
+        3 * ((you + 1 - opp) `mod` 3) + 1 + you
     )
     . lines
 

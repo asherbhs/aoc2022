@@ -2,6 +2,7 @@
 # flags:
 #    -e use Example input
 
+# why did I do this when I only have one flag
 while getopts 'e' o
 do
 	case $o in
@@ -10,25 +11,24 @@ do
 done
 shift $((OPTIND - 1))
 
-root=$(realpath ~/dev/aoc/2022)
 dayn=$(printf %02d $1)
-input=$root/input/${dayn}input.txt
-example=$root/input/${dayn}example.txt
+input=$(realpath input/${dayn}input.txt)
+example=$(realpath input/${dayn}example.txt)
 
 printf "bqn:     "
-bqn $root/bqn.bqn $1 $2 $([[ $doexample ]] && echo $example || echo $input)
+bqn bqn.bqn $1 $2 $([[ $doexample ]] && echo $example || echo $input)
 
-cd $root/haskell
+cd haskell
 stack build --silent
 printf "haskell: "
 stack run -- $1 $2 $([[ $doexample ]] && echo $example || echo $input)
-cd - > /dev/null
+cd ..
 
 printf "odin:    "
-odin build $root/odin
-$root/odin/.bin $1 $2 $([[ $doexample ]] && echo $example || echo $input)
+odin build odin
+odin/.bin $1 $2 $([[ $doexample ]] && echo $example || echo $input)
 
 printf "rust:    "
-cd $root/rust
+cd rust
 cargo run -q -- $1 $2 $([[ $doexample ]] && echo $example || echo $input)
-cd - > /dev/null
+cd ..
