@@ -112,9 +112,9 @@ main :: IO ()
 main = do
     [day, part, file] <- getArgs
     input <- readFile file
-    putStrLn $ case (read day, read part) :: (Int, Int) of
-        (1, 1) -> show $ day01part1 input
-        (1, 2) -> show $ day01part2 input
-        (2, 1) -> show $ day02part1 input
-        (2, 2) -> show $ day02part2 input
-        _ -> ""
+    putStrLn $ input & case (read day, read part) :: (Int, Int) of
+        (1, 1) -> show . day01part1
+        (1, 2) -> show . day01part2
+        (2, 1) -> show . day02part1
+        (2, 2) -> show . day02part2
+        _ -> const ""
